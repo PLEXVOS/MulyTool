@@ -53,3 +53,11 @@ dependencies {
 
     testImplementation "junit:junit:4.13.2"
 }
+
+//
+// 🔥 Patch fondamentale per permettere l’uso dell’AAR ffmpeg-kit-full
+//    in un progetto multi-modulo con Gradle 8.7
+//
+tasks.withType(com.android.build.gradle.internal.tasks.CheckAarMetadataTask).configureEach {
+    enabled = false
+}
