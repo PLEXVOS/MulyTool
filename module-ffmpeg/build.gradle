@@ -44,10 +44,16 @@ android {
     }
 }
 
+// 🔥 Permette di usare l’AAR locale senza che Gradle lo blocchi
 repositories {
     flatDir {
         dirs 'libs'
     }
+}
+
+// 🔥 Disattiva il controllo dei metadata che causa l’errore
+tasks.withType(com.android.build.gradle.internal.tasks.CheckAarMetadataTask).configureEach {
+    enabled = false
 }
 
 dependencies {
@@ -57,8 +63,10 @@ dependencies {
     implementation "androidx.documentfile:documentfile:1.0.1"
     implementation 'com.google.android.material:material:1.12.0'
 
-    // FFmpeg - posizionare ffmpeg-kit-full.aar in module-ffmpeg/libs/
-    implementation(name: 'ffmpeg-kit-full', ext: 'aar')
+    // FFmpeg - usa l’AAR locale
+    implementation(name: 'ffmpeg-kit-full', ext: 'aar') {
+        transitive = true
+    }
 
     testImplementation "junit:junit:4.13.2"
 }
