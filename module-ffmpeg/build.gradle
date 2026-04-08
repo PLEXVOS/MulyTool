@@ -13,13 +13,7 @@ android {
     }
 
     buildTypes {
-        release {
-            minifyEnabled false
-        }
-    }
-
-    buildFeatures {
-        viewBinding false
+        release { minifyEnabled false }
     }
 
     compileOptions {
@@ -27,14 +21,10 @@ android {
         targetCompatibility JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = '17'
-    }
+    kotlinOptions { jvmTarget = '17' }
 
     packaging {
-        jniLibs {
-            useLegacyPackaging = true
-        }
+        jniLibs { useLegacyPackaging = true }
     }
 
     configurations.all {
@@ -44,14 +34,6 @@ android {
     }
 }
 
-// 🔥 Permette di usare l’AAR locale senza che Gradle lo blocchi
-repositories {
-    flatDir {
-        dirs 'libs'
-    }
-}
-
-// 🔥 Disattiva il controllo dei metadata che causa l’errore
 tasks.withType(com.android.build.gradle.internal.tasks.CheckAarMetadataTask).configureEach {
     enabled = false
 }
@@ -62,11 +44,6 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.3.1"
     implementation "androidx.documentfile:documentfile:1.0.1"
     implementation 'com.google.android.material:material:1.12.0'
-
-    // FFmpeg - usa l’AAR locale
-    implementation(name: 'ffmpeg-kit-full', ext: 'aar') {
-        transitive = true
-    }
-
+    implementation(name: 'ffmpeg-kit-full', ext: 'aar')
     testImplementation "junit:junit:4.13.2"
 }
